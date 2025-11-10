@@ -156,6 +156,13 @@ func chatCompletion(
 
 // bash executes the given command in a bash shell and returns the output.
 func bash(command string) (string, error) {
+	programIdx := strings.Index(command, " ")
+	if programIdx != -1 {
+		fmt.Printf("$ bash -c %q\n", command[:programIdx])
+	} else {
+		fmt.Printf("$ bash -c %q\n", command)
+	}
+
 	cmd := exec.Command("bash", "-c", command)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
